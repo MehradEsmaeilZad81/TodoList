@@ -56,3 +56,26 @@ Thumbs.db
 # Docker
 docker-data/
 .docker/
+/generated/prisma
+
+# Prisma
+prisma/migrations/
+.env.local
+.env.development
+.env.test
+.env.production
+
+# NestJS specific
+*.tsbuildinfo
+dist/
+build/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
