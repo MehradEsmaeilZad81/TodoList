@@ -55,8 +55,8 @@ A production-ready RESTful API built with NestJS, featuring user authentication,
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/todo-list-api.git
-   cd todo-list-api
+   git clone https://github.com/yourusername/TodoList.git
+   cd TodoList
    ```
 
 2. **Install dependencies**
