@@ -1,98 +1,345 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🚀 Todo List API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A production-ready RESTful API built with NestJS, featuring user authentication, JWT tokens, and complete CRUD operations for managing todo lists. This project demonstrates enterprise-grade development practices including security, validation, testing, and comprehensive documentation.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## ✨ Features
 
-## Description
+- **🔐 User Authentication & Authorization**
+  - JWT-based authentication
+  - Secure password hashing with bcrypt
+  - User registration and login
+  - Protected routes with guards
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **📝 Todo Management**
+  - Create, read, update, and delete todos
+  - User-specific todo ownership
+  - Advanced filtering and search
+  - Pagination and sorting
 
-## Project setup
+- **🛡️ Security & Performance**
+  - Helmet security headers
+  - CORS configuration
+  - Rate limiting and throttling
+  - Input validation and sanitization
 
-```bash
-$ npm install
+- **🧪 Testing & Quality**
+  - Comprehensive unit tests
+  - End-to-end testing
+  - Code coverage reporting
+  - ESLint and Prettier configuration
+
+- **📚 Documentation**
+  - Interactive Swagger/OpenAPI documentation
+  - Detailed API specifications
+  - Request/response examples
+  - Authentication guides
+
+## 🏗️ Architecture
+
+- **Framework**: NestJS (Node.js)
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: JWT with Passport.js
+- **Validation**: class-validator with DTOs
+- **Testing**: Jest for unit and e2e tests
+- **Documentation**: Swagger/OpenAPI
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+ 
+- PostgreSQL 14+
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/todo-list-api.git
+   cd todo-list-api
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Setup**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Update `.env` with your database credentials:
+   ```env
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_USER=your_db_user
+   DB_PASSWORD=your_db_password
+   DB_NAME=your_db_name
+   DATABASE_URL="postgresql://your_db_user:your_db_password@localhost:5432/your_db_name"
+   JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+   ```
+
+4. **Database Setup**
+   ```bash
+   # Create and apply migrations
+   npx prisma migrate dev --name init
+   
+   # Seed the database with sample data
+   npm run seed
+   ```
+
+5. **Start the application**
+   ```bash
+   # Development mode
+   npm run start:dev
+   
+   # Production mode
+   npm run start:prod
+   ```
+
+The API will be available at `http://localhost:3000`
+
+## 📖 API Documentation
+
+### Interactive Documentation
+
+Access the complete API documentation at: `http://localhost:3000/api`
+
+### Authentication
+
+All protected endpoints require a JWT token in the Authorization header:
+```
+Authorization: Bearer <your-jwt-token>
 ```
 
-## Compile and run the project
+### Endpoints
 
-```bash
-# development
-$ npm run start
+#### 🔐 Authentication
 
-# watch mode
-$ npm run start:dev
+| Method | Endpoint | Description | Request Body |
+|--------|----------|-------------|--------------|
+| `POST` | `/auth/register` | Register a new user | `{ "name": "string", "email": "string", "password": "string" }` |
+| `POST` | `/auth/login` | Login user | `{ "email": "string", "password": "string" }` |
 
-# production mode
-$ npm run start:prod
+**Response Format:**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
 ```
 
-## Run tests
+#### 📝 Todo Management
 
-```bash
-# unit tests
-$ npm run test
+| Method | Endpoint | Description | Protected |
+|--------|----------|-------------|-----------|
+| `POST` | `/todos` | Create a new todo | ✅ |
+| `GET` | `/todos` | Get all todos with pagination | ✅ |
+| `GET` | `/todos/:id` | Get a specific todo | ✅ |
+| `PATCH` | `/todos/:id` | Update a todo | ✅ |
+| `DELETE` | `/todos/:id` | Delete a todo | ✅ |
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+**Todo Creation Request:**
+```json
+{
+  "title": "Buy groceries",
+  "description": "Milk, eggs, bread, and vegetables"
+}
 ```
 
-## Deployment
+**Query Parameters for GET /todos:**
+- `page` (number): Page number (default: 1)
+- `limit` (number): Items per page (default: 10, max: 100)
+- `search` (string): Search term for title/description
+- `sortBy` (string): Sort field (title, description, createdAt, updatedAt)
+- `sortOrder` (string): Sort direction (asc, desc)
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+**Response Format:**
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Buy groceries",
+      "description": "Milk, eggs, bread, and vegetables",
+      "userId": 1,
+      "createdAt": "2025-08-31T19:02:26.313Z",
+      "updatedAt": "2025-08-31T19:02:26.313Z"
+    }
+  ],
+  "page": 1,
+  "limit": 10,
+  "total": 1,
+  "totalPages": 1
+}
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 🧪 Testing
 
-## Resources
+### Run Tests
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+# Unit tests
+npm test
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# Unit tests with coverage
+npm run test:cov
 
-## Support
+# E2E tests
+npm run test:e2e
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# Test in watch mode
+npm run test:watch
+```
 
-## Stay in touch
+### Test Coverage
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+The project includes comprehensive tests covering:
+- Authentication service (register/login)
+- Todo service (CRUD operations)
+- End-to-end API testing
+- Error handling scenarios
 
-## License
+## 🛠️ Development
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Available Scripts
+
+```bash
+npm run build          # Build the application
+npm run start          # Start the application
+npm run start:dev      # Start in development mode with hot reload
+npm run start:debug    # Start in debug mode
+npm run start:prod     # Start in production mode
+npm run lint           # Run ESLint
+npm run format         # Format code with Prettier
+npm run seed           # Seed database with sample data
+npm run seed:reset     # Reset database and seed
+```
+
+### Database Management
+
+```bash
+# Generate Prisma client
+npx prisma generate
+
+# Create a new migration
+npx prisma migrate dev --name <migration-name>
+
+# Reset database (development only)
+npx prisma migrate reset
+
+# Open Prisma Studio
+npx prisma studio
+```
+
+### Code Quality
+
+- **ESLint**: Code linting and style enforcement
+- **Prettier**: Code formatting
+- **Husky**: Git hooks for pre-commit checks
+- **TypeScript**: Strict type checking
+
+## 🔒 Security Features
+
+- **Password Security**: Bcrypt hashing with 12 salt rounds
+- **JWT Tokens**: Secure authentication with configurable expiration
+- **Input Validation**: Comprehensive request validation
+- **Rate Limiting**: Protection against abuse
+- **CORS**: Configurable cross-origin resource sharing
+- **Helmet**: Security headers for HTTP responses
+
+## 📊 Database Schema
+
+### User Model
+```prisma
+model User {
+  id           Int       @id @default(autoincrement())
+  name         String
+  email        String    @unique
+  passwordHash String
+  todos        Todo[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+```
+
+### Todo Model
+```prisma
+model Todo {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+}
+```
+
+## 🚀 Deployment
+
+### Environment Variables
+
+| Variable | Description | Required | Default |
+|----------|-------------|----------|---------|
+| `NODE_ENV` | Environment (development/production) | No | development |
+| `PORT` | Server port | No | 3000 |
+| `DB_HOST` | Database host | Yes | - |
+| `DB_PORT` | Database port | Yes | - |
+| `DB_USER` | Database username | Yes | - |
+| `DB_PASSWORD` | Database password | Yes | - |
+| `DB_NAME` | Database name | Yes | - |
+| `DATABASE_URL` | Full database connection string | Yes | - |
+| `JWT_SECRET` | JWT signing secret | Yes | - |
+| `JWT_EXPIRES_IN` | JWT token expiration | No | 15m |
+
+### Production Considerations
+
+- Use strong, unique JWT secrets
+- Enable SSL for database connections
+- Set appropriate CORS origins
+- Configure proper logging
+- Use environment-specific configurations
+- Implement monitoring and health checks
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+
+- Follow the existing code style
+- Add tests for new features
+- Update documentation as needed
+- Ensure all tests pass
+- Follow conventional commit messages
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [NestJS](https://nestjs.com/) - Progressive Node.js framework
+- [Prisma](https://www.prisma.io/) - Next-generation ORM
+- [Jest](https://jestjs.io/) - Testing framework
+- [Swagger](https://swagger.io/) - API documentation
+
+## 📞 Support
+
+If you have any questions or need help:
+
+- Create an issue on GitHub
+- Check the [API documentation](http://localhost:3000/api)
+- Review the test examples
+- Check the Prisma schema for data structure
+
+---
+
+**Happy coding! 🎉**
