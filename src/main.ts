@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { setupSwagger } from './swagger/swagger.config';
 import helmet from 'helmet';
 
 async function bootstrap() {
@@ -29,6 +30,9 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
+
+  // Setup Swagger documentation
+  setupSwagger(app);
 
   const config = app.get(ConfigService);
   const port = config.get<number>('PORT') ?? 3000;
