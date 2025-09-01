@@ -343,3 +343,63 @@ If you have any questions or need help:
 ---
 
 **Happy coding! 🎉**
+
+## 🖥️ Frontend (Next.js) UI
+
+This repository now includes a modern React/Next.js frontend located in `frontend/` that connects to the NestJS API.
+
+### Tech stack
+- Next.js (App Router, TypeScript)
+- React, Tailwind CSS
+- Radix UI primitives, utility components (button, card, input, textarea)
+
+### App structure
+```
+frontend/
+  src/app/               # Next.js app router pages
+    login/               # Login page
+    register/            # Registration page
+    dashboard/           # Authenticated todo dashboard
+  src/components/        # UI, auth, and todo components
+  src/contexts/          # AuthProvider
+  src/lib/               # API client and utils
+  src/types/             # Shared TypeScript types
+```
+
+### Environment
+Create `frontend/.env.local` and set the API base URL (or export this when running):
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
+### Run the frontend
+```bash
+cd frontend
+npm install
+# default dev port is 3000
+npm run dev
+# or choose a different port
+PORT=3002 npm run dev
+```
+Open `http://localhost:3000` (or your chosen port).
+
+### Pages
+- `/login` – user login
+- `/register` – user registration
+- `/dashboard` – authenticated todo CRUD with search/sort/pagination
+
+### Run full stack locally
+```bash
+# terminal 1 - backend
+cd /Users/mehrad/nestjs-projects/todo-list-api
+PORT=3001 npm run start
+
+# terminal 2 - frontend
+cd /Users/mehrad/nestjs-projects/todo-list-api/frontend
+NEXT_PUBLIC_API_URL=http://localhost:3001 PORT=3002 npm run dev
+```
+Navigate to `http://localhost:3002` and use the UI (register/login, then manage todos).
+
+### Notes
+- The frontend only reads the token from localStorage for demo purposes. In production, consider httpOnly cookies and CSRF protection.
+- All frontend build artifacts and local env files are ignored via the root `.gitignore`.
