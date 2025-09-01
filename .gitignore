@@ -79,3 +79,15 @@ build/
 .vscode/settings.json
 .vscode/launch.json
 .vscode/tasks.json
+
+# Frontend (Next.js)
+# Ignore build artifacts and local env specifically inside frontend app
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.turbo/
+frontend/.vercel/
+frontend/.env.local
+frontend/.env.development
+frontend/.env.production
+frontend/.env.test
